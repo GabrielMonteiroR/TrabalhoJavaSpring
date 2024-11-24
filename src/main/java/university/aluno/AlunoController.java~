@@ -24,8 +24,10 @@ public class AlunoController {
 
             return ResponseEntity.ok(students);
         } catch (Exception e) {
+            // Loga o erro para facilitar o diagnóstico
             System.err.println("Erro ao buscar alunos: " + e.getMessage());
 
+            // Retorna 500 Internal Server Error com uma mensagem genérica
             return ResponseEntity.internalServerError()
                     .body(null);
         }
