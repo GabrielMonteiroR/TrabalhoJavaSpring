@@ -1,11 +1,25 @@
-package university;
+package university.aluno;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "alunos")
 public class AlunoEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
     private String nome;
+
+    @Column
     private String email;
+
+    @Column
     private String matricula;
+
+    @Column
     private String data_nascimento;
 
     public Integer getId() {
