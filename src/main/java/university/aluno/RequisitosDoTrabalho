@@ -1,0 +1,82 @@
+Trabalho
+
+Olá pessoal, aqui está uma proposta de modelagem de dados para um sistema backend educacional, como uma plataforma de gerenciamento de cursos e alunos para uma faculdade. Esse sistema poderia atender às necessidades de gerenciamento de alunos, cursos, turmas, professores e notas.
+
+Informações Importantes:
+
+Como combinado em aula, faremos o nosso trabalho dividido entre os TDEs.
+A entrega deverá ser feita APENAS pelo github em um repositório público. Envios de arquivos .zip não serão aceitos.
+A cada TDE façam pelo menos um commit para que seja visível a evolução do projeto.
+
+Modelagem de Dados
+
+1. Tabela: Alunos
+ID (PK, int): Identificador único do aluno.
+nome (varchar, 100): Nome completo do aluno.
+email (varchar, 100): Email do aluno.
+matricula (varchar, 20): Número de matrícula único do aluno.
+data_nascimento (date): Data de nascimento do aluno.
+
+
+
+2. Tabela: Professores
+ID (PK, int): Identificador único do professor.
+nome (varchar, 100): Nome completo do professor.
+email (varchar, 100): Email do professor.
+telefone (varchar, 15): Telefone de contato do professor.
+especialidade (varchar, 100): Especialidade ou área de atuação.
+
+
+3. Tabela: Cursos
+ID (PK, int): Identificador único do curso.
+nome (varchar, 100): Nome do curso.
+codigo (varchar, 20): Código único do curso.
+carga_horaria (int): Carga horária total do curso em horas.
+
+
+4. Tabela: Turmas
+ID (PK, int): Identificador único da turma.
+ano (int): Ano letivo.
+semestre (int): Semestre letivo (1 ou 2).
+curso_id (FK, int): Referência ao curso da turma (relacionamento ManyToOne com Cursos).
+5. Tabela: Disciplinas
+
+
+ID (PK, int): Identificador único da disciplina.
+nome (varchar, 100): Nome da disciplina.
+codigo (varchar, 20): Código único da disciplina.
+curso_id (FK, int): Referência ao curso ao qual a disciplina pertence (relacionamento ManyToOne com Cursos).
+professor_id (FK, int): Professor responsável pela disciplina (relacionamento ManyToOne com Professores).
+
+
+6. Tabela: Matriculas
+ID (PK, int): Identificador único da matrícula.
+aluno_id (FK, int): Referência ao aluno matriculado (relacionamento ManyToOne com Alunos).
+turma_id (FK, int): Referência à turma na qual o aluno está matriculado (relacionamento ManyToOne com Turmas).
+
+
+7. Tabela: Notas
+ID (PK, int): Identificador único da nota.
+matricula_id (FK, int): Referência à matrícula do aluno (relacionamento ManyToOne com Matriculas).
+disciplina_id (FK, int): Referência à disciplina para a qual a nota foi atribuída (relacionamento ManyToOne com Disciplinas).
+nota (decimal, 5, 2): Nota obtida pelo aluno na disciplina.
+data_lancamento (date): Data de lançamento da nota.
+
+
+Relacionamentos
+Cursos possui várias Disciplinas (OneToMany).
+Cursos possui várias Turmas (OneToMany).
+Professores lecionam várias Disciplinas (OneToMany).
+Turmas têm vários Alunos por meio de Matriculas (ManyToMany).
+Matriculas relacionam Alunos e Turmas.
+Disciplinas têm várias Notas (OneToMany), associadas por Matriculas dos alunos.
+
+
+Funcionalidades do Backend
+Gerenciamento de Alunos: Cadastro, atualização, listagem e exclusão de alunos.
+Gerenciamento de Professores: Cadastro, atualização, listagem e exclusão de professores.
+Gerenciamento de Cursos e Disciplinas: Cadastro e manutenção de cursos e suas respectivas disciplinas.
+Gerenciamento de Turmas: Criação e gerenciamento das turmas por curso e semestre.
+Matrículas de Alunos: Inscrição dos alunos nas turmas, com validação de pré-requisitos e disponibilidade.
+Lançamento de Notas: Cadastro e atualização de notas de acordo com disciplinas e matrículas dos alunos.
+Relatórios de Desempenho Acadêmico: Consulta de boletins e desempenho por aluno, turma e disciplina.
