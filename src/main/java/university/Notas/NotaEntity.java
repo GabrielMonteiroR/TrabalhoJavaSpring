@@ -22,7 +22,7 @@ public class NotaEntity {
     @JoinColumn(name = "disciplina_id", nullable = false)
     private DisciplinaEntity disciplina;
 
-    @Column(nullable = false, precision = 5, scale = 2)
+    @Column(nullable = false)
     private Double nota;
 
     @Column(nullable = false)
