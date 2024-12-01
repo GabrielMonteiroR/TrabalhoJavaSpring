@@ -1,3 +1,5 @@
+package university.Cursos;
+
 import jakarta.persistence.*;
 
 @Entity
