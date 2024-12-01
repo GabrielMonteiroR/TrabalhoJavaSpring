@@ -1,6 +1,7 @@
 package university.Professor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +29,13 @@ public class ProfessorController {
 
     @PostMapping
     public ResponseEntity<ProfessorEntity> create(@RequestBody ProfessorEntity professor) {
+        if (repository.existsByEmail(professor.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
         ProfessorEntity saved = repository.save(professor);
-        return ResponseEntity.status(201).body(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<ProfessorEntity> update(@PathVariable Integer id, @RequestBody ProfessorEntity professor) {

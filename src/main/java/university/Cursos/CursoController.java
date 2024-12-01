@@ -1,6 +1,7 @@
 package university.Cursos;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,9 @@ public class CursoController {
     @PostMapping
     public ResponseEntity<CursoEntity> create(@RequestBody CursoEntity curso) {
         CursoEntity saved = repository.save(curso);
-        return ResponseEntity.status(201).body(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<CursoEntity> update(@PathVariable Integer id, @RequestBody CursoEntity curso) {

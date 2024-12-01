@@ -2,4 +2,6 @@ package university.Professor;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProfessorRepository extends JpaRepository<ProfessorEntity, Integer> {}
+public interface ProfessorRepository extends JpaRepository<ProfessorEntity, Integer> {
+    boolean existsByEmail(String email);
+}

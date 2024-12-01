@@ -19,125 +19,82 @@ public class AlunoController {
 
     @GetMapping
     public ResponseEntity<List<AlunoListDTO>> findAlunos() {
-        try {
-            var students = repository.findAll();
+        List<AlunoListDTO> students = repository.findAll()
+                .stream()
+                .map(student -> new AlunoListDTO(
+                        student.getNome(),
+                        student.getEmail(),
+                        student.getMatricula()
+                ))
+                .collect(Collectors.toList());
 
-            if (students.isEmpty()) {
-                return ResponseEntity.noContent().build();
-            }
-
-            List<AlunoListDTO> studentDTOs = students.stream()
-                    .map(student -> new AlunoListDTO(
-                            student.getNome(),
-                            student.getEmail(),
-                            student.getMatricula()
-                    ))
-                    .collect(Collectors.toList());
-
-            return ResponseEntity.ok(studentDTOs);
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar alunos: " + e.getMessage());
-            return ResponseEntity.internalServerError().body(null);
-        }
+        return students.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(students);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AlunoListDTO> findStudentById(@PathVariable Integer id) {
-        try {
-            var student = this.repository.findById(id);
-
-            if (student.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
-            AlunoEntity aluno = student.get();
-            AlunoListDTO alunoDTO = new AlunoListDTO(
-                    aluno.getNome(),
-                    aluno.getEmail(),
-                    aluno.getMatricula()
-            );
-
-            return ResponseEntity.ok(alunoDTO);
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar aluno: " + e.getMessage());
-            return ResponseEntity.internalServerError().body(null);
-        }
+        return repository.findById(id)
+                .map(aluno -> ResponseEntity.ok(new AlunoListDTO(
+                        aluno.getNome(),
+                        aluno.getEmail(),
+                        aluno.getMatricula()
+                )))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<AlunoListDTO> createAluno(@RequestBody AlunoCreateDTO alunoDTO) {
-        try {
-            Optional<AlunoEntity> alunoExists = repository.findByMatricula(alunoDTO.matricula());
-            if (alunoExists.isPresent()) {
-                return ResponseEntity.status(409).body(null);
-            }
-
-            AlunoEntity alunoEntity = new AlunoEntity();
-            alunoEntity.setNome(alunoDTO.nome());
-            alunoEntity.setEmail(alunoDTO.email());
-            alunoEntity.setMatricula(alunoDTO.matricula());
-
-            AlunoEntity savedAluno = repository.save(alunoEntity);
-            AlunoListDTO responseDTO = new AlunoListDTO(
-                    savedAluno.getNome(),
-                    savedAluno.getEmail(),
-                    savedAluno.getMatricula()
-            );
-
-            return ResponseEntity.status(201).body(responseDTO);
-        } catch (Exception e) {
-            System.err.println("Erro ao criar aluno: " + e.getMessage());
-            return ResponseEntity.internalServerError().body(null);
+        if (repository.existsByMatricula(alunoDTO.matricula())) {
+            return ResponseEntity.status(409).body(null); // Conflito
         }
+
+        AlunoEntity alunoEntity = new AlunoEntity();
+        alunoEntity.setNome(alunoDTO.nome());
+        alunoEntity.setEmail(alunoDTO.email());
+        alunoEntity.setMatricula(alunoDTO.matricula());
+
+        AlunoEntity savedAluno = repository.save(alunoEntity);
+        return ResponseEntity.status(201).body(new AlunoListDTO(
+                savedAluno.getNome(),
+                savedAluno.getEmail(),
+                savedAluno.getMatricula()
+        ));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AlunoListDTO> updateAluno(@PathVariable Integer id, @RequestBody AlunoCreateDTO alunoDTO) {
-        try {
-            Optional<AlunoEntity> optionalAluno = repository.findById(id);
+        Optional<AlunoEntity> alunoOpt = repository.findById(id);
 
-            if (optionalAluno.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
-            Optional<AlunoEntity> existingAluno = repository.findByMatricula(alunoDTO.matricula());
-            if (existingAluno.isPresent() && !existingAluno.get().getId().equals(id)) {
-                return ResponseEntity.status(409).body(null);
-            }
-
-            AlunoEntity alunoEntity = optionalAluno.get();
-            alunoEntity.setNome(alunoDTO.nome());
-            alunoEntity.setEmail(alunoDTO.email());
-            alunoEntity.setMatricula(alunoDTO.matricula());
-
-            AlunoEntity updatedAluno = repository.save(alunoEntity);
-            AlunoListDTO responseDTO = new AlunoListDTO(
-                    updatedAluno.getNome(),
-                    updatedAluno.getEmail(),
-                    updatedAluno.getMatricula()
-            );
-
-            return ResponseEntity.ok(responseDTO);
-        } catch (Exception e) {
-            System.err.println("Erro ao atualizar aluno: " + e.getMessage());
-            return ResponseEntity.internalServerError().body(null);
+        if (alunoOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
+
+        if (repository.existsByMatriculaAndIdNot(alunoDTO.matricula(), id)) {
+            return ResponseEntity.status(409).body(null); // Conflito
+        }
+
+        AlunoEntity alunoEntity = alunoOpt.get();
+        alunoEntity.setNome(alunoDTO.nome());
+        alunoEntity.setEmail(alunoDTO.email());
+        alunoEntity.setMatricula(alunoDTO.matricula());
+
+        AlunoEntity updatedAluno = repository.save(alunoEntity);
+        return ResponseEntity.ok(new AlunoListDTO(
+                updatedAluno.getNome(),
+                updatedAluno.getEmail(),
+                updatedAluno.getMatricula()
+        ));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAluno(@PathVariable Integer id) {
-        try {
-            Optional<AlunoEntity> optionalAluno = repository.findById(id);
-
-            if (optionalAluno.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
-            repository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            System.err.println("Erro ao excluir aluno: " + e.getMessage());
-            return ResponseEntity.internalServerError().build();
+        if (!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
         }
+
+        repository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
