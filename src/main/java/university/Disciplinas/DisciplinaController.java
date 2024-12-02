@@ -3,8 +3,13 @@ package university.Disciplinas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import university.Cursos.CursoEntity;
+import university.Disciplinas.dto.DisciplinaCreateDTO;
+import university.Disciplinas.dto.DisciplinaResponseDTO;
+import university.Professor.ProfessorEntity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/disciplinas")
@@ -14,33 +19,77 @@ public class DisciplinaController {
     private DisciplinaRepository repository;
 
     @GetMapping
-    public ResponseEntity<List<DisciplinaEntity>> findAll() {
+    public ResponseEntity<List<DisciplinaResponseDTO>> findAll() {
         var disciplinas = repository.findAll();
-        return disciplinas.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(disciplinas);
+        if (disciplinas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        List<DisciplinaResponseDTO> disciplinaDTOs = disciplinas.stream()
+                .map(disciplina -> new DisciplinaResponseDTO(
+                        disciplina.getId(),
+                        disciplina.getNome(),
+                        disciplina.getCodigo(),
+                        disciplina.getCurso().getId(),
+                        disciplina.getProfessor().getId()
+                ))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(disciplinaDTOs);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DisciplinaEntity> findById(@PathVariable Integer id) {
+    public ResponseEntity<DisciplinaResponseDTO> findById(@PathVariable Integer id) {
         return repository.findById(id)
+                .map(disciplina -> new DisciplinaResponseDTO(
+                        disciplina.getId(),
+                        disciplina.getNome(),
+                        disciplina.getCodigo(),
+                        disciplina.getCurso().getId(),
+                        disciplina.getProfessor().getId()))
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<DisciplinaEntity> create(@RequestBody DisciplinaEntity disciplina) {
+    public ResponseEntity<DisciplinaResponseDTO> create(@RequestBody DisciplinaCreateDTO disciplinaDTO) {
+        DisciplinaEntity disciplina = new DisciplinaEntity();
+        disciplina.setNome(disciplinaDTO.nome());
+        disciplina.setCodigo(disciplinaDTO.codigo());
+        disciplina.setCurso(new CursoEntity(disciplinaDTO.cursoId()));
+        disciplina.setProfessor(new ProfessorEntity(disciplinaDTO.professorId()));
+
         DisciplinaEntity saved = repository.save(disciplina);
-        return ResponseEntity.status(201).body(saved);
+
+        DisciplinaResponseDTO responseDTO = new DisciplinaResponseDTO(
+                saved.getId(),
+                saved.getNome(),
+                saved.getCodigo(),
+                saved.getCurso().getId(),
+                saved.getProfessor().getId()
+        );
+
+        return ResponseEntity.status(201).body(responseDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DisciplinaEntity> update(@PathVariable Integer id, @RequestBody DisciplinaEntity disciplina) {
+    public ResponseEntity<DisciplinaResponseDTO> update(@PathVariable Integer id, @RequestBody DisciplinaCreateDTO disciplinaDTO) {
         return repository.findById(id).map(existing -> {
-            existing.setNome(disciplina.getNome());
-            existing.setCodigo(disciplina.getCodigo());
-            existing.setCurso(disciplina.getCurso());
-            existing.setProfessor(disciplina.getProfessor());
-            repository.save(existing);
-            return ResponseEntity.ok(existing);
+            existing.setNome(disciplinaDTO.nome());
+            existing.setCodigo(disciplinaDTO.codigo());
+            existing.setCurso(new CursoEntity(disciplinaDTO.cursoId()));
+            existing.setProfessor(new ProfessorEntity(disciplinaDTO.professorId()));
+            DisciplinaEntity updated = repository.save(existing);
+
+            DisciplinaResponseDTO responseDTO = new DisciplinaResponseDTO(
+                    updated.getId(),
+                    updated.getNome(),
+                    updated.getCodigo(),
+                    updated.getCurso().getId(),
+                    updated.getProfessor().getId()
+            );
+
+            return ResponseEntity.ok(responseDTO);
         }).orElse(ResponseEntity.notFound().build());
     }
 

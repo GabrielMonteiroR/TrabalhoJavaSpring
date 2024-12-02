@@ -22,6 +22,12 @@ public class ProfessorEntity {
     @Column(length = 100)
     private String especialidade;
 
+    public ProfessorEntity() {}
+
+    public ProfessorEntity(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

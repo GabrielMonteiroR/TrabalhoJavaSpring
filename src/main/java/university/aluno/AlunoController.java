@@ -47,7 +47,7 @@ public class AlunoController {
     @PostMapping
     public ResponseEntity<AlunoListDTO> createAluno(@RequestBody AlunoCreateDTO alunoDTO) {
         if (repository.existsByMatricula(alunoDTO.matricula())) {
-            return ResponseEntity.status(409).body(null); // Conflito
+            return ResponseEntity.status(409).body(null);
         }
 
         AlunoEntity alunoEntity = new AlunoEntity();
@@ -72,7 +72,7 @@ public class AlunoController {
         }
 
         if (repository.existsByMatriculaAndIdNot(alunoDTO.matricula(), id)) {
-            return ResponseEntity.status(409).body(null); // Conflito
+            return ResponseEntity.status(409).body(null);
         }
 
         AlunoEntity alunoEntity = alunoOpt.get();

@@ -22,6 +22,12 @@ public class AlunoEntity {
     @Column
     private String data_nascimento;
 
+    public AlunoEntity() {}
+
+    public AlunoEntity(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

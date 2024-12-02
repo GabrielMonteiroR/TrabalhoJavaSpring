@@ -21,6 +21,12 @@ public class TurmaEntity {
     @JoinColumn(name = "curso_id", nullable = false)
     private CursoEntity curso;
 
+    public TurmaEntity() {}
+
+    public TurmaEntity(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

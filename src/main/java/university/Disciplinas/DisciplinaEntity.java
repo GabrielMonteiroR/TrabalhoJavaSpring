@@ -26,6 +26,12 @@ public class DisciplinaEntity {
     @JoinColumn(name = "professor_id", nullable = false)
     private ProfessorEntity professor;
 
+    public DisciplinaEntity() {}
+
+    public DisciplinaEntity(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

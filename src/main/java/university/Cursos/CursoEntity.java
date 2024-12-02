@@ -19,6 +19,12 @@ public class CursoEntity {
     @Column(nullable = false)
     private Integer cargaHoraria;
 
+    public CursoEntity() { }
+
+    public CursoEntity(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -20,6 +20,12 @@ public class MatriculaEntity {
     @JoinColumn(name = "turma_id", nullable = false)
     private TurmaEntity turma;
 
+    public MatriculaEntity() {}
+
+    public MatriculaEntity(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
