@@ -1,0 +1,592 @@
+{
+  "info": {
+      "name": "API University",
+      "description": "Coleção completa para todas as funcionalidades das rotas da API University",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+      {
+          "name": "Alunos",
+          "item": [
+              {
+                  "name": "Listar Alunos",
+                  "request": {
+                      "method": "GET",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/alunos",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "alunos"]
+                      }
+                  }
+              },
+              {
+                  "name": "Buscar Aluno por ID",
+                  "request": {
+                      "method": "GET",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/alunos/1",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "alunos", "1"]
+                      }
+                  }
+              },
+              {
+                  "name": "Criar Aluno",
+                  "request": {
+                      "method": "POST",
+                      "header": [{"key": "Content-Type", "value": "application/json"}],
+                      "body": {
+                          "mode": "raw",
+                          "raw": "{\"nome\":\"João Silva\",\"email\":\"joao.silva@example.com\",\"matricula\":\"1234567890\"}"
+                      },
+                      "url": {
+                          "raw": "http://localhost:8080/api/alunos",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "alunos"]
+                      }
+                  }
+              },
+              {
+                  "name": "Atualizar Aluno",
+                  "request": {
+                      "method": "PUT",
+                      "header": [{"key": "Content-Type", "value": "application/json"}],
+                      "body": {
+                          "mode": "raw",
+                          "raw": "{\"nome\":\"João Carlos Silva\",\"email\":\"joao.carlos.silva@example.com\",\"matricula\":\"1234567890\"}"
+                      },
+                      "url": {
+                          "raw": "http://localhost:8080/api/alunos/1",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "alunos", "1"]
+                      }
+                  }
+              },
+              {
+                  "name": "Excluir Aluno",
+                  "request": {
+                      "method": "DELETE",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/alunos/1",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "alunos", "1"]
+                      }
+                  }
+              }
+          ]
+      },
+      {
+          "name": "Professores",
+          "item": [
+              {
+                  "name": "Listar Professores",
+                  "request": {
+                      "method": "GET",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/professores",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "professores"]
+                      }
+                  }
+              },
+              {
+                  "name": "Buscar Professor por ID",
+                  "request": {
+                      "method": "GET",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/professores/1",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "professores", "1"]
+                      }
+                  }
+              },
+              {
+                  "name": "Criar Professor",
+                  "request": {
+                      "method": "POST",
+                      "header": [{"key": "Content-Type", "value": "application/json"}],
+                      "body": {
+                          "mode": "raw",
+                          "raw": "{\"nome\":\"Maria Oliveira\",\"email\":\"maria.oliveira@example.com\",\"telefone\":\"123456789\",\"especialidade\":\"Matemática\"}"
+                      },
+                      "url": {
+                          "raw": "http://localhost:8080/api/professores",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "professores"]
+                      }
+                  }
+              },
+              {
+                  "name": "Atualizar Professor",
+                  "request": {
+                      "method": "PUT",
+                      "header": [{"key": "Content-Type", "value": "application/json"}],
+                      "body": {
+                          "mode": "raw",
+                          "raw": "{\"nome\":\"Maria Aparecida Oliveira\",\"email\":\"maria.aparecida.oliveira@example.com\",\"telefone\":\"987654321\",\"especialidade\":\"Física\"}"
+                      },
+                      "url": {
+                          "raw": "http://localhost:8080/api/professores/1",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "professores", "1"]
+                      }
+                  }
+              },
+              {
+                  "name": "Excluir Professor",
+                  "request": {
+                      "method": "DELETE",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/professores/1",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "professores", "1"]
+                      }
+                  }
+              }
+          ]
+      },
+      {
+          "name": "Cursos",
+          "item": [
+              {
+                  "name": "Listar Cursos",
+                  "request": {
+                      "method": "GET",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/cursos",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "cursos"]
+                      }
+                  }
+              },
+              {
+                  "name": "Buscar Curso por ID",
+                  "request": {
+                      "method": "GET",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/cursos/1",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "cursos", "1"]
+                      }
+                  }
+              },
+              {
+                  "name": "Criar Curso",
+                  "request": {
+                      "method": "POST",
+                      "header": [{"key": "Content-Type", "value": "application/json"}],
+                      "body": {
+                          "mode": "raw",
+                          "raw": "{\"nome\":\"Engenharia de Software\",\"codigo\":\"ES101\",\"cargaHoraria\":3600}"
+                      },
+                      "url": {
+                          "raw": "http://localhost:8080/api/cursos",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "cursos"]
+                      }
+                  }
+              },
+              {
+                  "name": "Atualizar Curso",
+                  "request": {
+                      "method": "PUT",
+                      "header": [{"key": "Content-Type", "value": "application/json"}],
+                      "body": {
+                          "mode": "raw",
+                          "raw": "{\"nome\":\"Engenharia de Software Avançada\",\"codigo\":\"ES201\",\"cargaHoraria\":4000}"
+                      },
+                      "url": {
+                          "raw": "http://localhost:8080/api/cursos/1",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "cursos", "1"]
+                      }
+                  }
+              },
+              {
+                  "name": "Excluir Curso",
+                  "request": {
+                      "method": "DELETE",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/cursos/1",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "cursos", "1"]
+                      }
+                  }
+              }
+          ]
+      },
+
+      {
+        "name": "Disciplinas",
+        "item": [
+            {
+                "name": "Listar Disciplinas",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/disciplinas",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "disciplinas"]
+                    }
+                }
+            },
+            {
+                "name": "Buscar Disciplina por ID",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/disciplinas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "disciplinas", "1"]
+                    }
+                }
+            },
+            {
+                "name": "Criar Disciplina",
+                "request": {
+                    "method": "POST",
+                    "header": [{"key": "Content-Type", "value": "application/json"}],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\"nome\":\"Estrutura de Dados\",\"codigo\":\"ED101\",\"cursoId\":1,\"professorId\":1}"
+                    },
+                    "url": {
+                        "raw": "http://localhost:8080/api/disciplinas",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "disciplinas"]
+                    }
+                }
+            },
+            {
+                "name": "Atualizar Disciplina",
+                "request": {
+                    "method": "PUT",
+                    "header": [{"key": "Content-Type", "value": "application/json"}],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\"nome\":\"Estrutura de Dados Avançada\",\"codigo\":\"ED201\",\"cursoId\":1,\"professorId\":2}"
+                    },
+                    "url": {
+                        "raw": "http://localhost:8080/api/disciplinas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "disciplinas", "1"]
+                    }
+                }
+            },
+            {
+                "name": "Excluir Disciplina",
+                "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/disciplinas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "disciplinas", "1"]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "Turmas",
+        "item": [
+            {
+                "name": "Listar Turmas",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/turmas",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "turmas"]
+                    }
+                }
+            },
+            {
+                "name": "Buscar Turma por ID",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/turmas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "turmas", "1"]
+                    }
+                }
+            },
+            {
+                "name": "Criar Turma",
+                "request": {
+                    "method": "POST",
+                    "header": [{"key": "Content-Type", "value": "application/json"}],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\"ano\":2024,\"semestre\":1,\"cursoId\":1}"
+                    },
+                    "url": {
+                        "raw": "http://localhost:8080/api/turmas",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "turmas"]
+                    }
+                }
+            },
+            {
+                "name": "Atualizar Turma",
+                "request": {
+                    "method": "PUT",
+                    "header": [{"key": "Content-Type", "value": "application/json"}],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\"ano\":2025,\"semestre\":2,\"cursoId\":1}"
+                    },
+                    "url": {
+                        "raw": "http://localhost:8080/api/turmas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "turmas", "1"]
+                    }
+                }
+            },
+            {
+                "name": "Excluir Turma",
+                "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/turmas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "turmas", "1"]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "Notas",
+        "item": [
+            {
+                "name": "Listar Notas",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/notas",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "notas"]
+                    }
+                }
+            },
+            {
+                "name": "Buscar Nota por ID",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/notas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "notas", "1"]
+                    }
+                }
+            },
+            {
+                "name": "Criar Nota",
+                "request": {
+                    "method": "POST",
+                    "header": [{"key": "Content-Type", "value": "application/json"}],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\"matriculaId\":1,\"disciplinaId\":1,\"nota\":9.5,\"dataLancamento\":\"2024-12-01\"}"
+                    },
+                    "url": {
+                        "raw": "http://localhost:8080/api/notas",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "notas"]
+                    }
+                }
+            },
+            {
+                "name": "Atualizar Nota",
+                "request": {
+                    "method": "PUT",
+                    "header": [{"key": "Content-Type", "value": "application/json"}],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\"matriculaId\":1,\"disciplinaId\":1,\"nota\":8.0,\"dataLancamento\":\"2024-12-02\"}"
+                    },
+                    "url": {
+                        "raw": "http://localhost:8080/api/notas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "notas", "1"]
+                    }
+                }
+            },
+            {
+                "name": "Excluir Nota",
+                "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/notas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "notas", "1"]
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "Matrículas",
+        "item": [
+            {
+                "name": "Listar Matrículas",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/matriculas",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "matriculas"]
+                    }
+                }
+            },
+            {
+                "name": "Buscar Matrícula por ID",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/matriculas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "matriculas", "1"]
+                    }
+                }
+            },
+            {
+                "name": "Criar Matrícula",
+                "request": {
+                    "method": "POST",
+                    "header": [{"key": "Content-Type", "value": "application/json"}],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\"alunoId\":1,\"turmaId\":1}"
+                    },
+                    "url": {
+                        "raw": "http://localhost:8080/api/matriculas",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "matriculas"]
+                    }
+                }
+            },
+            {
+                "name": "Atualizar Matrícula",
+                "request": {
+                    "method": "PUT",
+                    "header": [{"key": "Content-Type", "value": "application/json"}],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\"alunoId\":1,\"turmaId\":2}"
+                    },
+                    "url": {
+                        "raw": "http://localhost:8080/api/matriculas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "matriculas", "1"]
+                    }
+                }
+            },
+            {
+                "name": "Excluir Matrícula",
+                "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:8080/api/matriculas/1",
+                        "protocol": "http",
+                        "host": ["localhost"],
+                        "port": "8080",
+                        "path": ["api", "matriculas", "1"]
+                    }
+                }
+            }
+        ]
+    }
+
+  ]
+}
