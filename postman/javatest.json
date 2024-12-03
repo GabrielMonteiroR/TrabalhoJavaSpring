@@ -586,7 +586,56 @@
                 }
             }
         ]
-    }
+    },
+      {
+          "name": "Desempenho Acadêmico",
+          "item": [
+              {
+                  "name": "Notas por Aluno",
+                  "request": {
+                      "method": "GET",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/alunos/1/notas",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "alunos", "1", "notas"]
+                      }
+                  }
+              },
+              {
+                  "name": "Notas por Turma",
+                  "request": {
+                      "method": "GET",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/turmas/1/notas",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "turmas", "1", "notas"]
+                      }
+                  }
+              },
+              {
+                  "name": "Notas por Disciplina",
+                  "request": {
+                      "method": "GET",
+                      "header": [],
+                      "url": {
+                          "raw": "http://localhost:8080/api/disciplinas/1/notas",
+                          "protocol": "http",
+                          "host": ["localhost"],
+                          "port": "8080",
+                          "path": ["api", "disciplinas", "1", "notas"]
+                      }
+                  }
+              }
+          ]
+      }
+
 
   ]
+
 }

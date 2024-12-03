@@ -3,9 +3,11 @@ package university.Turmas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import university.Notas.NotaRepository;
 import university.Turmas.dto.TurmaCreateDTO;
 import university.Turmas.dto.TurmaResponseDTO;
 import university.Cursos.CursoEntity;
+import university.aluno.dto.NotaDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +18,8 @@ public class TurmaController {
 
     @Autowired
     private TurmaRepository repository;
+    @Autowired
+    private NotaRepository notaRepository;
 
     @GetMapping
     public ResponseEntity<List<TurmaResponseDTO>> findAll() {
@@ -94,4 +98,21 @@ public class TurmaController {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/notas")
+    public ResponseEntity<List<NotaDTO>> getNotasByTurma(@PathVariable Integer id) {
+        var notas = notaRepository.findByTurmaId(id).stream()
+                .map(nota -> new NotaDTO(
+                        nota.getDisciplina().getNome(),
+                        nota.getNota(),
+                        nota.getDataLancamento()
+                ))
+                .collect(Collectors.toList());
+
+        return notas.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(notas);
+    }
+
+
 }

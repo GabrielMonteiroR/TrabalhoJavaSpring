@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import university.Cursos.CursoEntity;
 import university.Disciplinas.dto.DisciplinaCreateDTO;
 import university.Disciplinas.dto.DisciplinaResponseDTO;
+import university.Notas.NotaRepository;
 import university.Professor.ProfessorEntity;
+import university.aluno.dto.NotaDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +19,8 @@ public class DisciplinaController {
 
     @Autowired
     private DisciplinaRepository repository;
+    @Autowired
+    private NotaRepository notaRepository;
 
     @GetMapping
     public ResponseEntity<List<DisciplinaResponseDTO>> findAll() {
@@ -101,4 +105,21 @@ public class DisciplinaController {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/notas")
+    public ResponseEntity<List<NotaDTO>> getNotasByDisciplina(@PathVariable Integer id) {
+        var notas = notaRepository.findByDisciplinaId(id).stream()
+                .map(nota -> new NotaDTO(
+                        nota.getDisciplina().getNome(),
+                        nota.getNota(),
+                        nota.getDataLancamento()
+                ))
+                .collect(Collectors.toList());
+
+        return notas.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(notas);
+    }
+
+
 }

@@ -1,8 +1,10 @@
 package university.Notas;
 
 import jakarta.persistence.*;
+import university.Cursos.CursoEntity;
 import university.Disciplinas.DisciplinaEntity;
 import university.Matricula.MatriculaEntity;
+import university.aluno.AlunoEntity;
 
 import java.time.LocalDate;
 
@@ -67,4 +69,9 @@ public class NotaEntity {
     public void setDataLancamento(LocalDate dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
+
+    public AlunoEntity getAluno() {
+        return this.matricula != null ? this.matricula.getAluno() : null;
+    }
+
 }

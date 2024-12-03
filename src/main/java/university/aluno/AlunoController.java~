@@ -3,10 +3,8 @@ package university.aluno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import university.Notas.NotaRepository;
 import university.aluno.dto.AlunoCreateDTO;
 import university.aluno.dto.AlunoListDTO;
-import university.aluno.dto.NotaDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +16,6 @@ public class AlunoController {
 
     @Autowired
     private AlunoRepository repository;
-    @Autowired
-    private NotaRepository notaRepository;
 
     @GetMapping
     public ResponseEntity<List<AlunoListDTO>> findAlunos() {
@@ -102,23 +98,6 @@ public class AlunoController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}/notas")
-    public ResponseEntity<List<NotaDTO>> getNotasByAluno(@PathVariable Integer id) {
-        var alunoOpt = repository.findById(id);
-        if (alunoOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        var notas = notaRepository.findByAlunoId(id).stream()
-                .map(nota -> new NotaDTO(
-                        nota.getDisciplina().getNome(),
-                        nota.getNota(),
-                        nota.getDataLancamento()
-                ))
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(notas);
-    }
-
+    
 
 }
